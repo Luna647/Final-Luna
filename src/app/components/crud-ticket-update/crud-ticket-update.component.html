@@ -1,0 +1,101 @@
+<div class="container">
+  <form class="mat-dialog-content" [formGroup]="formsActualiza">
+    <div class="row">
+      <mat-toolbar color="primary">
+        <span>Actualizar Ticket</span>
+      </mat-toolbar>
+    </div>
+
+    <mat-form-field class="col-md-12">
+      <mat-label>Título</mat-label>
+      <input matInput formControlName="title">
+      <mat-error *ngIf="formsActualiza.get('title')?.hasError('required')">El título es requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-md-12">
+      <mat-label>Descripción</mat-label>
+      <input matInput formControlName="description">
+      <mat-error *ngIf="formsActualiza.get('description')?.hasError('required')">La descripción es requerida</mat-error>
+    </mat-form-field>
+
+    <!-- updatedAt field -->
+    <mat-form-field class="col-md-12">
+      <mat-label>Fecha de Actualización</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="updatedAt">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="formsActualiza.get('updatedAt')?.hasError('required')">La fecha de actualización es requerida</mat-error>
+    </mat-form-field>
+
+    <!-- CreatedAt field -->
+    <mat-form-field class="col-md-12">
+      <mat-label>Fecha de Creación</mat-label>
+      <input matInput [matDatepicker]="picker2" formControlName="createdAt">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+      <mat-error *ngIf="formsActualiza.get('createdAt')?.hasError('required')">La fecha de creación es requerida</mat-error>
+    </mat-form-field>
+
+    <!-- Campo kind -->
+    <mat-form-field class="col-md-12">
+      <mat-label>Tipos</mat-label>
+      <mat-select formControlName="validaTipo" (selectionChange)="onKindChange($event.value)">
+        <mat-option value="">[Seleccione]</mat-option>
+        <mat-option *ngFor="let tipo of tipos" [value]="tipo.id">{{tipo.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Campo user -->
+    <mat-form-field class="col-md-12">
+      <mat-label>Usuario</mat-label>
+      <mat-select formControlName="validaUsuario" (selectionChange)="onUserChange($event.value)">
+        <mat-option value="">[Seleccione]</mat-option>
+        <mat-option *ngFor="let usuario of usuarios" [value]="usuario.id">{{usuario.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Campo project -->
+    <mat-form-field class="col-md-12">
+      <mat-label>Proyecto</mat-label>
+      <mat-select formControlName="validaProjecto" (selectionChange)="onProjectChange($event.value)">
+        <mat-option value="">[Seleccione]</mat-option>
+        <mat-option *ngFor="let projecto of projectos" [value]="projecto.id">{{projecto.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Campo category -->
+    <mat-form-field class="col-md-12">
+      <mat-label>Categoría</mat-label>
+      <mat-select formControlName="validaCategoria" (selectionChange)="onCategoryChange($event.value)">
+        <mat-option value="">[Seleccione]</mat-option>
+        <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Campo priority -->
+    <mat-form-field class="col-md-12">
+      <mat-label>Prioridad</mat-label>
+      <mat-select formControlName="validaPrioridad" (selectionChange)="onPriorityChange($event.value)">
+        <mat-option value="">[Seleccione]</mat-option>
+        <mat-option *ngFor="let prioridad of prioridades" [value]="prioridad.id">{{prioridad.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Campo status -->
+    <mat-form-field class="col-md-12">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="validaEstado" (selectionChange)="onStatusChange($event.value)">
+        <mat-option value="">[Seleccione]</mat-option>
+        <mat-option *ngFor="let estado of estados" [value]="estado.id">{{estado.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="row">
+      <!-- Action buttons -->
+      <div class="col-md-12">
+        <button mat-raised-button color="primary" type="submit" (click)="actualiza()" [disabled]="formsActualiza.invalid">Actualizar</button>
+        <button mat-stroked-button color="warn" (click)="salir()">Cancelar</button>
+      </div>
+    </div>
+  </form>
+</div>

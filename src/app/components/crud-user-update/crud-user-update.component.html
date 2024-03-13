@@ -1,0 +1,47 @@
+<div class="container">
+  <form class="mat-dialog-content" [formGroup]="formsActualiza">
+    <div class="row">
+      <mat-toolbar color="primary">
+        <span>Actualizar Usuario</span>
+      </mat-toolbar>
+    </div>
+    <div class="row" style="margin-top: 3%">
+      <mat-form-field class="col-md-12">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="validaNombre">
+        <mat-error *ngIf="formsActualiza.get('validaNombre')?.hasError('required')">El nombre es requerido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-md-12">
+        <mat-label>Usuario</mat-label>
+        <input matInput formControlName="validaUsuario">
+        <mat-error *ngIf="formsActualiza.get('validaUsuario')?.hasError('required')">El usuario es requerido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-md-12">
+        <mat-label>Apellido</mat-label>
+        <input matInput formControlName="validaApellido">
+        <mat-error *ngIf="formsActualiza.get('validaApellido')?.hasError('required')">El apellido es requerido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-md-12">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="validaEmail">
+        <mat-error *ngIf="formsActualiza.get('validaEmail')?.hasError('required')">El email es requerido</mat-error>
+        <mat-error *ngIf="formsActualiza.get('validaEmail')?.hasError('email')">Debe ser un email válido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-md-12">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="validaPassword">
+        <mat-error *ngIf="formsActualiza.get('validaPassword')?.hasError('required')">La contraseña es requerida</mat-error>
+      </mat-form-field>
+
+      <mat-checkbox formControlName="validaIsActive">Activo</mat-checkbox>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-raised-button color="primary" (click)="actualiza()" [disabled]="formsActualiza.invalid">Actualizar</button>
+      <button mat-button (click)="salir()" color="warn">Cancelar</button>
+    </div>
+  </form>
+</div>

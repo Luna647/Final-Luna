@@ -1,0 +1,93 @@
+<div>
+  <div class="row">
+    <mat-toolbar color="primary">
+      <span>Mantenimiento de Ticket</span>
+    </mat-toolbar>
+  </div>
+
+  <div class="row" style="margin-top: 3%">
+    <mat-form-field class="col-md-4">
+      <mat-label>Buscar por Título</mat-label>
+      <input matInput [(ngModel)]="filtro" (input)="applyFilter($event)">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="button" (click)="applyFilterByButton()" id="id_btn_filtrar">Buscar</button>
+    <button mat-raised-button color="primary" type="button" (click)="openAddUserDialog()" style="margin-left: 8px;">Registrar Ticket</button>
+  </div>
+
+  <div class="row" style="margin-top: 3%">
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+        <mat-cell *matCellDef="let ticket">{{ ticket.id }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
+        <mat-cell *matCellDef="let ticket">{{ ticket.title }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+        <mat-cell *matCellDef="let ticket">{{ ticket.description }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="updatedAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Actualizado</mat-header-cell>
+        <mat-cell *matCellDef="let ticket">{{ ticket.updatedAt | date: 'short' }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createdAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Creado</mat-header-cell>
+        <mat-cell *matCellDef="let ticket">{{ ticket.createdAt | date: 'short' }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="kind">
+        <mat-header-cell *matHeaderCellDef>Tipo</mat-header-cell>
+        <mat-cell *matCellDef="let ticket">{{ ticket.kind.name }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="user">
+        <mat-header-cell *matHeaderCellDef>Usuario</mat-header-cell>
+        <mat-cell *matCellDef="let ticket">{{ ticket.user.name }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="project">
+        <mat-header-cell *matHeaderCellDef>Proyecto</mat-header-cell>
+        <mat-cell *matCellDef="let ticket">{{ ticket.project.name }}</mat-cell>
+      </ng-container>
+
+       <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef>Categoria</mat-header-cell>
+        <mat-cell *matCellDef="let ticket">{{ ticket.category.name }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="priority">
+        <mat-header-cell *matHeaderCellDef>Prioridad</mat-header-cell>
+        <mat-cell *matCellDef="let ticket">{{ ticket.priority.name }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>Estatus</mat-header-cell>
+        <mat-cell *matCellDef="let ticket">{{ ticket.status.name }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+        <mat-cell *matCellDef="let ticket">
+          <button mat-icon-button color="primary" (click)="openEditDialog(ticket)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteUser(ticket.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of tickets"></mat-paginator>
+  </div>
+</div>
